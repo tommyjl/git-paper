@@ -1,0 +1,9 @@
+[package]
+name = "git-tp"
+version = "0.1.0"
+license = "MIT"
+edition = "2021"
+authors = ["Tommy Joe Lund <tomlun92@gmail.com>"]
+
+[dependencies]
+clap = { version = "3.2.6", features = ["derive"] }
