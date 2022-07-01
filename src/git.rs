@@ -1,21 +1,20 @@
-use clap::Parser;
 use std::io::Result;
-use std::process::{Command, ExitStatus, Stdio};
-
-#[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
-pub struct Args {
-    branch_name: String,
-}
+use std::process::{Command, Stdio};
 
 pub struct GitCommand;
+
+impl Default for GitCommand {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl GitCommand {
     pub fn new() -> Self {
         Self {}
     }
 
-    fn run_quiet(&self, args: &[&str]) -> Result<()> {
+    pub fn run_quiet(&self, args: &[&str]) -> Result<()> {
         let status = Command::new("git")
             .args(args)
             .stdout(Stdio::null())
@@ -59,25 +58,4 @@ impl GitCommand {
             &format!("{branch}@{{upstream}}"),
         ])
     }
-}
-
-fn git_new_branch() -> Result<()> {
-    let args = Args::parse();
-
-    let git = GitCommand::new();
-
-    let current = git.current_branch()?;
-    let upstream = git.upstream(&current)?;
-
-    git.run_quiet(&["branch", &args.branch_name])?;
-    git.run_quiet(&["branch", "--set-upstream-to", &upstream, &args.branch_name])?;
-
-    // println!("{:?}", args);
-    // println!("Current = {}", current);
-    // println!("Upstream = {}", upstream);
-    Ok(())
-}
-
-fn main() -> Result<()> {
-    git_new_branch()
 }
