@@ -6,4 +6,5 @@ edition = "2021"
 authors = ["Tommy Joe Lund <tomlun92@gmail.com>"]
 
 [dependencies]
+anyhow = "1.0.58"
 clap = { version = "3.2.6", features = ["derive"] }

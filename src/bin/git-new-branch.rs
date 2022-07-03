@@ -1,6 +1,6 @@
+use anyhow::Result;
 use clap::Parser;
 use git_tp::git::GitCommand;
-use std::io::Result;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
